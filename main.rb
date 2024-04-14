@@ -1,17 +1,6 @@
-# For this project, you will read in a CSV file Download CSV file that has statistics for 1000 cell phones.
-  # You will then create a class called Cell and assign the column as class attributes. Create getter and setter methods.
-  # The objects will be stored in a data structure native to the language.
-  # You are free to pick what your data structure is but if your language has a HashMap type data structure, I strongly encourage you using it.
 
-  # Data Ingestion and Cleaning
-  # You must perform transformations on the data as it comes in or after it is been ingested.
-  # This a process called data cleaning and these are the steps:
-    # Replace all missing or "-" values with null or something similar that can be ignored during calculations.
-    # Transform data in appropriate columns according to instructions.
-    # For example in the body_weight column, a typical value is '190 g (6.70 oz)'' and needs to be converted to 190.
-    # Convert data types in appropriate columns
-
-# Methods
+=begin
+Methods
   # Within each class, you will create a series of methods that will perform operations on the new objects.
   # There must be at least 7 methods/functions in your Cell class, not including getter and setter methods or the methods you use for transformation.
   # Be creative and think critically, its your choice on what these are.
@@ -32,10 +21,12 @@
   # Ensure the file being read is not empty.
   # Ensure each column's final transformation matches what is stated above as its final form (ex: test if display_size is now a float)
   # Ensure all missing or "-" data is replaced with a null value.
+=end
 
-
+# For this project, you will read in a CSV file Download CSV file that has statistics for 1000 cell phones.
 # Import built-in CSV library
 require 'csv'
+require 'descriptive_statistics'
 
 # Read CSV file
 cells = CSV.read('cells.csv', headers: true)
@@ -47,9 +38,8 @@ cells.each do |row|
   puts row.inspect
 end
 
-
-
-# Create a class named "Cell", and assigning each column as class attributes
+# You will then create a class called Cell and assign the column as class attributes. Create getter and setter methods.
+# Creating a class named "Cell", and assigning each column as class attributes
 class Cell
   attr_accessor :oem,
   :model,
@@ -78,15 +68,52 @@ class Cell
     @features_sensors = attributes['features_sensors']
     @platform_os = attributes['platform_os']
   end
+
+  def to_s
+    "OEM: #{@oem},
+    Model: #{@model},
+    Launch Announced: #{@launch_announced},
+    Launch Status: #{@launch_status},
+    Body Dimensions: #{@body_dimensions},
+    Body Weight: #{@body_weight},
+    Body SIM: #{@body_sim},
+    Display Type: #{@display_type},
+    Display Size: #{@display_size},
+    Display Resolution: #{@display_resolution},
+    Features Sensors: #{@features_sensors},
+    Platform OS: #{@platform_os}"
+  end
 end
 
+# The objects will be stored in a data structure native to the language.
+# You are free to pick what your data structure is but if your language has a HashMap type data structure, I strongly encourage you using it.
 # Creating a data structure to store each phone in hash
 phones = {}
 
-# Convert each row in the CSV to a hash
+# Convert each row in the CSV to a hash object
 cells.each do |row|
   cell = Cell.new(row.to_h)
   phones[cell.model] = cell
 end
 
-puts phones.inspect
+ # Data Ingestion and Cleaning
+  # You must perform transformations on the data as it comes in or after it is been ingested.
+    # 1) Replace all missing or "-" values with null or something similar that can be ignored during calculations.
+    # 2) Transform data in appropriate columns according to instructions (ex: body_weight column, '190 g (6.70 oz)'' > 190)
+    # 3) Convert data types in appropriate columns
+=begin
+    oem is treated as a string // Replace missing or "-" values with null
+    model is treated as a string // Replace missing or "-" values with null
+    launch_announced is treated as integer (Year) // Values containing "V1" must be replaced with null
+    launch_status is treated as a string (Year or "Discontinued" or "Cancelled") //
+    body_dimensions is treated as a string (Height x Width x Thickness in mm or inches) // Replace missing or "-" values with null
+    body_weight is treated as an float (in grams) // String w/ integer in it before letter g
+    body_sim is treated as a string // Replace "No" with null, replace "Yes" w/ "Mini-SIM"
+    display_type is treated as a string // Replace missing or "-" values with null
+    display_size is treated as a float (in inches) // String w/ integer or float before the word "inches"
+    display_resolution is treated as a string // Replace missing or "-" values with null
+    features_sensors is treated as a string // Replace missing or "-" values with null. Replace integers w/ null
+    platform_os is treated as a string // Replace instances of floats to integers (e.g. "Android 4.4.2" to "Android 4")
+
+
+=end
