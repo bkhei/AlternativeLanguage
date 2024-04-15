@@ -1,12 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    nkf (0.1.2)
+    rubyzip (2.3.2)
+    write_xlsx (1.12.1)
+      nkf
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   arm64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
+  write_xlsx
 
 BUNDLED WITH
    2.4.10
