@@ -141,6 +141,7 @@ class Cell
     @platform_os = first_os
 
   end
+
   # Method that will convert objects details to a string for printing
   def to_s
     body_weight_str = @body_weight && @body_weight % 1 == 0 ? @body_weight.to_i.to_s : @body_weight.to_s
@@ -173,4 +174,8 @@ phones = {}
 cells.each do |row|
   cell = Cell.new(row.to_h)
   phones[cell.model] = cell
+end
+
+phones.each do |model, cell |
+  puts cell.to_s
 end
