@@ -1,4 +1,3 @@
-
 =begin
 Methods
   # Within each class, you will create a series of methods that will perform operations on the new objects.
@@ -55,20 +54,52 @@ class Cell
   :platform_os
 
   def initialize(attributes = {})
-    @oem = attributes['oem']
-    @model = attributes['model']
-    @launch_announced = attributes['launch_announced']
+    @oem = attributes['oem'].empty? || attributes['oem'] == '-' ? nil : attributes['oem'] # Replace missing or "-" values with null
+
+    @model = attributes['model'].empty? || attributes['model'] == '-' ? nil : attributes['model'] # Replace missing or "-" values with null
+
+    # Extract year from launch_announced and convert to integer
+    launch_announced = attributes['launch_announced']
+    # Check to see if the launch_announced contains V1
+    if launch_announced == 'V1'
+      @launch_announced = nil
+    # Check to see if launch_announced contains a year, then capture the first year encountered and store it as an integer
+    else
+      year = launch_anhnounced && launch_announced.scan(/\d{4}/).first
+    @launch_announced = year ? year.to_i : nil
+    end
+
+    # Extract year from launch_status
+    # Keep in mind there are no instances of V1 in this column, so we don't need to do any replacements outside of the year
     @launch_status = attributes['launch_status']
-    @body_dimensions = attributes['body_dimensions']
+    # Check to see if launch_status contains Discontinued or Cancelled
+    if launch_status == 'Discontinued' || launch_status == 'Cancelled'
+      @launch_status = launch_status
+    # Otherwise, check to see if launch_status contains a year, then capture the first year encountered and store it as an integer
+    else
+      year = launch_status && launch_status.scan(/\d{4}/).first
+      @launch_status = year ? year.to_i : launch_status
+    end
+
+
+    @body_dimensions = attributes['body_dimensions'].empty? || attributes['body_dimensions'] == '-' ? nil : attributes['body_dimensions'] # Replace missing or "-" values with null
+
+    # Extract the body weight from the string and convert to a float
     @body_weight = attributes['body_weight']
+
     @body_sim = attributes['body_sim']
-    @display_type = attributes['display_type']
+
+    @display_type = attributes['display_type'].empty? || attributes['display_type'] == '-' ? nil : attributes['display_type'] # Replace missing or "-" values with null
+
     @display_size = attributes['display_size']
-    @display_resolution = attributes['display_resolution']
+
+    @display_resolution = attributes['display_resolution'].empty? || attributes['display_resolution'] == '-' ? nil : attributes['display_resolution'] # Replace missing or "-" values with null
+
     @features_sensors = attributes['features_sensors']
+
     @platform_os = attributes['platform_os']
   end
-
+  # Method that will convert objects details to a string for printing
   def to_s
     "OEM: #{@oem},
     Model: #{@model},
@@ -82,6 +113,11 @@ class Cell
     Display Resolution: #{@display_resolution},
     Features Sensors: #{@features_sensors},
     Platform OS: #{@platform_os}"
+  end
+
+  # Method to array of unique values for a given column
+  def self.unique_values(cells, column)
+    cells.map { |cell| cell.send(column) }.uniq
   end
 end
 
