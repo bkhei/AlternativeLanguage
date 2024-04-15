@@ -4,8 +4,8 @@ Methods
   There must be at least 7 methods/functions in your Cell class, not including getter and setter methods or the methods you use for transformation.
   Be creative and think critically, its your choice on what these are.
   Some ideas:
-    ToString method that will convert your objects details to a string for printing.
-    Calculate statistics on columns, for numeric, descriptive stats such as mean, median, standard deviation, etc. For categorical columns, perhaps Mode or count of unique values.
+    - ToString method that will convert your objects details to a string for printing.
+    - Calculate statistics on columns, for numeric, descriptive stats such as mean, median, standard deviation, etc. For categorical columns, perhaps Mode or count of unique values.
     Listing of unique values for each column.
     Ability to add an object and input data for each object's variable.
     Ability to delete an object.
@@ -20,8 +20,27 @@ Testing
   Ensure the file being read is not empty.
   Ensure each column's final transformation matches what is stated above as its final form (ex: test if display_size is now a float)
   Ensure all missing or "-" data is replaced with a null value.
-=end
 
+ # Data Ingestion and Cleaning
+  # You must perform transformations on the data as it comes in or after it is been ingested.
+    # 1) Replace all missing or "-" values with null or something similar that can be ignored during calculations.
+    # 2) Transform data in appropriate columns according to instructions (ex: body_weight column, '190 g (6.70 oz)'' > 190)
+    # 3) Convert data types in appropriate columns
+
+    oem is treated as a string // Replace missing or "-" values with null
+    model is treated as a string // Replace missing or "-" values with null
+    launch_announced is treated as integer (Year) // Values containing "V1" must be replaced with null
+    launch_status is treated as a string (Year or "Discontinued" or "Cancelled") //
+    body_dimensions is treated as a string (Height x Width x Thickness in mm or inches) // Replace missing or "-" values with null
+    body_weight is treated as an float (in grams) // String w/ integer in it before letter g
+    body_sim is treated as a string // Replace "No" with null, replace "Yes" w/ "Mini-SIM"
+    display_type is treated as a string // Replace missing or "-" values with null
+    display_size is treated as a float (in inches) // String w/ integer or float before the word "inches"
+    display_resolution is treated as a string // Replace missing or "-" values with null
+    features_sensors is treated as a string // Replace missing or "-" values with null. Replace integers w/ null
+    platform_os is treated as a string // Replace instances of floats to integers (e.g. "Android 4.4.2" to "Android 4")
+
+=end
 # For this project, you will read in a CSV file Download CSV file that has statistics for 1000 cell phones.
 # Import built-in CSV library
 require 'csv'
@@ -155,25 +174,3 @@ cells.each do |row|
   cell = Cell.new(row.to_h)
   phones[cell.model] = cell
 end
-
- # Data Ingestion and Cleaning
-  # You must perform transformations on the data as it comes in or after it is been ingested.
-    # 1) Replace all missing or "-" values with null or something similar that can be ignored during calculations.
-    # 2) Transform data in appropriate columns according to instructions (ex: body_weight column, '190 g (6.70 oz)'' > 190)
-    # 3) Convert data types in appropriate columns
-
-=begin
-    oem is treated as a string // Replace missing or "-" values with null
-    model is treated as a string // Replace missing or "-" values with null
-    launch_announced is treated as integer (Year) // Values containing "V1" must be replaced with null
-    launch_status is treated as a string (Year or "Discontinued" or "Cancelled") //
-    body_dimensions is treated as a string (Height x Width x Thickness in mm or inches) // Replace missing or "-" values with null
-    body_weight is treated as an float (in grams) // String w/ integer in it before letter g
-    body_sim is treated as a string // Replace "No" with null, replace "Yes" w/ "Mini-SIM"
-    display_type is treated as a string // Replace missing or "-" values with null
-    display_size is treated as a float (in inches) // String w/ integer or float before the word "inches"
-    display_resolution is treated as a string // Replace missing or "-" values with null
-    features_sensors is treated as a string // Replace missing or "-" values with null. Replace integers w/ null
-    platform_os is treated as a string // Replace instances of floats to integers (e.g. "Android 4.4.2" to "Android 4")
-
-=end
