@@ -54,9 +54,10 @@ class Cell
   :platform_os
 
   def initialize(attributes = {})
-    @oem = attributes['oem'].empty? || attributes['oem'] == '-' ? nil : attributes['oem'] # Replace missing or "-" values with null
-
-    @model = attributes['model'].empty? || attributes['model'] == '-' ? nil : attributes['model'] # Replace missing or "-" values with null
+    # Replace missing or "-" values with null
+    @oem = attributes['oem'].empty? || attributes['oem'] == '-' ? nil : attributes['oem']
+    # Replace missing or "-" values with null
+    @model = attributes['model'].empty? || attributes['model'] == '-' ? nil : attributes['model']
 
     # Extract year from launch_announced and convert to integer
     launch_announced = attributes['launch_announced']
@@ -81,32 +82,55 @@ class Cell
       @launch_status = year ? year.to_i : launch_status
     end
 
-
-    @body_dimensions = attributes['body_dimensions'].empty? || attributes['body_dimensions'] == '-' ? nil : attributes['body_dimensions'] # Replace missing or "-" values with null
+    # Replace missing or "-" values with null
+    @body_dimensions = attributes['body_dimensions'].empty? || attributes['body_dimensions'] == '-' ? nil : attributes['body_dimensions']
 
     # Extract the body weight from the string and convert to a float
-    @body_weight = attributes['body_weight']
+    body_weight = attributes['body_weight']
+    # Check to encounter the first integer or float in the string and store it as a float
+    weight_in_grams = body_weight && body_weight.scan(/\d+(\.\d+)?/).first
+    @body_weight = weight_in_grams ? weight_in_grams.to_f : nil
 
-    @body_sim = attributes['body_sim']
+    # Extract the SIM card type from the string
+    body_sim = attributes['body_sim']
+    # Check to see if body_sim contains oddities (Yes/No)
+    if body_sim == 'No' || body_sim == 'Yes'
+      @body_sim = nil
+    else
+      @body_sim = body_sim
+    end
 
-    @display_type = attributes['display_type'].empty? || attributes['display_type'] == '-' ? nil : attributes['display_type'] # Replace missing or "-" values with null
+    # Replace missing or "-" values with null
+    @display_type = attributes['display_type'].empty? || attributes['display_type'] == '-' ? nil : attributes['display_type']
 
-    @display_size = attributes['display_size']
 
+    # Extract the display size from the string and convert to a float
+    display_size = attributes['display_size']
+    size_in_inches = display_size && display_size.scan(/\d+(\.\d+)?/).first
+    @display_size = size_in_inches ? "#{size_in_inches} inches" : nil
+
+    # Replace missing or "-" values with null
     @display_resolution = attributes['display_resolution'].empty? || attributes['display_resolution'] == '-' ? nil : attributes['display_resolution'] # Replace missing or "-" values with null
 
-    @features_sensors = attributes['features_sensors']
+    # Replace missing or "-" values with null
+    # For unit testing purposes, remember the Cells.csv doesn't have invalid attributes in this column
+    @features_sensors = attributes['features_sensors'].empty? || attributes['features_sensors'] == '-' ? nil : attributes['features_sensors']
 
-    @platform_os = attributes['platform_os']
+    # Extract the platform OS from the string
+    platform_os = attributes['platform_os']
+    first_os = platform_os && platform_os.split(',', 2).first
+    @platform_os = first_os
+
   end
   # Method that will convert objects details to a string for printing
   def to_s
+    body_weight_str = @body_weight && @body_weight % 1 == 0 ? @body_weight.to_i.to_s : @body_weight.to_s
     "OEM: #{@oem},
     Model: #{@model},
     Launch Announced: #{@launch_announced},
     Launch Status: #{@launch_status},
     Body Dimensions: #{@body_dimensions},
-    Body Weight: #{@body_weight},
+    Body Weight: #{body_weight_str} g,
     Body SIM: #{@body_sim},
     Display Type: #{@display_type},
     Display Size: #{@display_size},
@@ -137,7 +161,7 @@ end
     # 1) Replace all missing or "-" values with null or something similar that can be ignored during calculations.
     # 2) Transform data in appropriate columns according to instructions (ex: body_weight column, '190 g (6.70 oz)'' > 190)
     # 3) Convert data types in appropriate columns
-    
+
 =begin
     oem is treated as a string // Replace missing or "-" values with null
     model is treated as a string // Replace missing or "-" values with null
@@ -153,4 +177,3 @@ end
     platform_os is treated as a string // Replace instances of floats to integers (e.g. "Android 4.4.2" to "Android 4")
 
 =end
- 
