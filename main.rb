@@ -1,26 +1,26 @@
 
 =begin
 Methods
-  # Within each class, you will create a series of methods that will perform operations on the new objects.
-  # There must be at least 7 methods/functions in your Cell class, not including getter and setter methods or the methods you use for transformation.
-  # Be creative and think critically, its your choice on what these are.
-  # Some ideas:
-    # ToString method that will convert your objects details to a string for printing.
-    #Calculate statistics on columns, for numeric, descriptive stats such as mean, median, standard deviation, etc. For categorical columns, perhaps Mode or count of unique values.
-    # Listing of unique values for each column.
-    # Ability to add an object and input data for each object's variable.
-    # Ability to delete an object.
+  Within each class, you will create a series of methods that will perform operations on the new objects.
+  There must be at least 7 methods/functions in your Cell class, not including getter and setter methods or the methods you use for transformation.
+  Be creative and think critically, its your choice on what these are.
+  Some ideas:
+    ToString method that will convert your objects details to a string for printing.
+    Calculate statistics on columns, for numeric, descriptive stats such as mean, median, standard deviation, etc. For categorical columns, perhaps Mode or count of unique values.
+    Listing of unique values for each column.
+    Ability to add an object and input data for each object's variable.
+    Ability to delete an object.
 
-# Exceptions
-   #Ensure that you have exceptions that can handle errors.
-    # Focus on input validation. You do not need to validate everything,
-    # but have a robust number of exception handling in your project to show you are making your program secure and able to survive poor user input.
+Exceptions
+   Ensure that you have exceptions that can handle errors.
+    Focus on input validation. You do not need to validate everything,
+    but have a robust number of exception handling in your project to show you are making your program secure and able to survive poor user input.
 
-# Testing
- # If your programming language has unit testing capability such as junit or pyunit, use that for your unit tests. If not, write your own unit tests for each method. On top of a unit test for each method, there are three tests you are required to have:
-  # Ensure the file being read is not empty.
-  # Ensure each column's final transformation matches what is stated above as its final form (ex: test if display_size is now a float)
-  # Ensure all missing or "-" data is replaced with a null value.
+Testing
+ If your programming language has unit testing capability such as junit or pyunit, use that for your unit tests. If not, write your own unit tests for each method. On top of a unit test for each method, there are three tests you are required to have:
+  Ensure the file being read is not empty.
+  Ensure each column's final transformation matches what is stated above as its final form (ex: test if display_size is now a float)
+  Ensure all missing or "-" data is replaced with a null value.
 =end
 
 # For this project, you will read in a CSV file Download CSV file that has statistics for 1000 cell phones.
@@ -101,6 +101,7 @@ end
     # 1) Replace all missing or "-" values with null or something similar that can be ignored during calculations.
     # 2) Transform data in appropriate columns according to instructions (ex: body_weight column, '190 g (6.70 oz)'' > 190)
     # 3) Convert data types in appropriate columns
+    
 =begin
     oem is treated as a string // Replace missing or "-" values with null
     model is treated as a string // Replace missing or "-" values with null
@@ -115,5 +116,5 @@ end
     features_sensors is treated as a string // Replace missing or "-" values with null. Replace integers w/ null
     platform_os is treated as a string // Replace instances of floats to integers (e.g. "Android 4.4.2" to "Android 4")
 
-
 =end
+ 
