@@ -141,3 +141,34 @@ CSV.open("transformed_data.csv", "wb") do |csv|
     csv << data
   end
 end
+
+# The OEM/manufacturer w/ highest average phone weight
+oem_weights = phones.group_by { |model, cell| cell.oem }.transform_values do |cells|
+  cells.map { |model, cell| cell.body_weight.to_f }.mean
+end
+heaviest_oem = oem_weights.max_by { |oem, avg_weight| avg_weight }
+puts "OEM w/ the highest avg phone weight: #{heaviest_oem.first} with weight of #{heaviest_oem.last}"
+
+# The amount of phones w/ only one feature sensor
+single_sensor_phones = phones.count { |model, cell| cell.features_sensors&.split(',').count == 1 }
+puts "Amount of phones w/ only one feature sensor: #{single_sensor_phones}"
+
+# OEM and model of the phones that were announced and released in different years (not incl. discontinued or canceled)
+phones.each do |model, cell|
+  next if cell.launch_announced.nil? || cell.launch_status.nil?
+  announced_year = cell.launch_announced
+  status_year = cell.launch_status.is_a?(Integer) ? cell.launch_status : nil
+  if announced_year != status_year && !['Discontinued', 'Cancelled'].include?(cell.launch_status)
+    puts "OEM: #{cell.oem}, Model: #{model}, Announced: #{announced_year}, Released: #{status_year}"
+  end
+end
+
+# The year that had the most amount of phones launched after 1999.
+launch_years = phones.map do |model, cell|
+  next if cell.launch_announced.nil?
+  year = cell.launch_announced
+  year > 1999 ? year : nil
+end.compact
+
+most_launched_year = launch_years.mode
+puts "The year with the most phone launches after 1999: #{most_launched_year}"
