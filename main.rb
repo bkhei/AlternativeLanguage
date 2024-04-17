@@ -19,6 +19,7 @@
 # Import library to write to an excel file
 require 'csv'
 require 'write_xlsx'
+require 'descriptive_statistics'
 
 # Read CSV file
 cells = CSV.read('cells.csv', headers: true)
@@ -151,10 +152,11 @@ CSV.open("transformed_data.csv", "wb") do |csv|
   # Write the headers to the CSV file
   headers = ['OEM', 'Model', 'Launch Announced', 'Launch Status', 'Body Dimensions', 'Body Weight', 'Body SIM', 'Display Type', 'Display Size', 'Display Resolution', 'Features Sensors', 'Platform OS']
   csv << headers
-
+=begin
   # Write the data to the CSV file
   phones.each do |model, cell|
     data = [cell.oem, model, cell.launch_announced, cell.launch_status, cell.body_dimensions, cell.body_weight, cell.body_sim, cell.display_type, cell.display_size, cell.display_resolution, cell.features_sensors, cell.platform_os]
     csv << data
   end
 end
+=end
