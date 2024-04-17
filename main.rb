@@ -124,12 +124,18 @@ end
 # Creating a data structure to store each phone in hash
 phones = {}
 
-# Writing transformed data to a new CSV file
+# Convert each row in the CSV to a hash object
+cells.each do |row|
+  cell = Cell.new(row.to_h)
+  phones[cell.model] = cell
+end
+
+# Open a new CSV file
 CSV.open("transformed_data.csv", "wb") do |csv|
-  # Write the headers to CSV file
+  # Write the headers to the CSV file
   headers = ['OEM', 'Model', 'Launch Announced', 'Launch Status', 'Body Dimensions', 'Body Weight', 'Body SIM', 'Display Type', 'Display Size', 'Display Resolution', 'Features Sensors', 'Platform OS']
   csv << headers
-  # Write data to the CSV file
+  # Write the data to the CSV file
   phones.each do |model, cell|
     data = [cell.oem, model, cell.launch_announced, cell.launch_status, cell.body_dimensions, cell.body_weight, cell.body_sim, cell.display_type, cell.display_size, cell.display_resolution, cell.features_sensors, cell.platform_os]
     csv << data
