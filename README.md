@@ -52,5 +52,5 @@ In this assignment, I was given the opportunity to explore using Ruby as a new p
 - Lack of exception handling, and if there was, it'd be on niche scenarios that I noticed wasn't covered in the assignment instructions. For example, we would have cases where phones were discontinued but they were still announced and released in separate years (e.g. Mitac MIO Leap G50 and Leap K1), or where we needed to replace '-' or blanks even when the columns were filled.
 
 ## Code Output 
-![Code output](![image](https://github.com/bkhei/AlternativeLanguage/assets/47387636/65c9395e-e8d9-49cb-986b-4b5d83e8a61e)
+(![image](https://github.com/bkhei/AlternativeLanguage/assets/47387636/65c9395e-e8d9-49cb-986b-4b5d83e8a61e)
 )
