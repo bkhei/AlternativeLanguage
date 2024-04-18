@@ -25,7 +25,7 @@ In this assignment, I was given the opportunity to explore using Ruby as a new p
 - Answer the following questions (and provide a corresponding screen showing output answering them):
   1) What company (oem) has the highest average weight of the phone body?\
   **HP**
-  2) Was there any phones that were announced in one year and released in another? What are they? Give me the oem and models.\
+  2) Was there any phones that were announced in one year and released in another? What are they? Give me the oem and models.
     - **Motorola: One Hyper and Razr 2019**
     - **Xiaomi: Redmi K30 5G and Mi Mix Alpha**
   3) How many phones have only one feature sensor?\
