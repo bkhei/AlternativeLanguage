@@ -1,7 +1,22 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    descriptive_statistics (2.5.1)
+    diff-lcs (1.5.1)
     nkf (0.1.2)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
     rubyzip (2.3.2)
     write_xlsx (1.12.1)
       nkf
@@ -12,6 +27,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  descriptive_statistics
+  rspec
   write_xlsx
 
 BUNDLED WITH

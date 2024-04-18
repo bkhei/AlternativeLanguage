@@ -1,7 +1,9 @@
 # Import built-in CSV library
-# Import library to write to an excel file
+# Import library for unit testing
+# Import library for calculating different statistics
 require 'csv'
-require 'write_xlsx'
+require 'rspec'
+require_relative 'main'
 require 'descriptive_statistics'
 
 # Read CSV file
@@ -172,3 +174,29 @@ end.compact
 
 most_launched_year = launch_years.mode
 puts "The year with the most phone launches after 1999: #{most_launched_year}"
+
+# Unit testing
+describe 'Cell data processing' do
+  before(:all) do
+    @cells = CSV.read('cells.csv', headers: true).map { |row| Cell.new(row.to_h) }
+  end
+
+  it 'ensures the file being read is not empty' do
+    expect(@cells).not_to be_empty
+  end
+
+  it 'ensures each column\'s final transformation matches its final form' do
+    @cells.each do |cell|
+      expect(cell.display_size).to be_a(Float) if cell.display_size
+    end
+  end
+
+  it 'ensures all missing or "-" data is replaced with a null value' do
+    @cells.each do |cell|
+      expect(cell.oem).not_to eq('-')
+      expect(cell.model).not_to eq('-')
+      expect(cell.oem).not_to be_empty
+      expect(cell.model).not_to be_empty
+    end
+  end
+end
