@@ -50,3 +50,7 @@ In this assignment, I was given the opportunity to explore using Ruby as a new p
   -  The data processing transformations are being done properly as the display_size need to be in the correct format to work properly and return the values we wanted, at least in the class method.
   -  Code ends up behaving strangely if we didn't have the nil values, and we had to account for these in nearly every step of our code. Ruby will take count of the ones we have and raise an error accordingly, which leads into...
 - Lack of exception handling, and if there was, it'd be on niche scenarios that I noticed wasn't covered in the assignment instructions. For example, we would have cases where phones were discontinued but they were still announced and released in separate years (e.g. Mitac MIO Leap G50 and Leap K1), or where we needed to replace '-' or blanks even when the columns were filled.
+
+## Code Output 
+![Code output](![image](https://github.com/bkhei/AlternativeLanguage/assets/47387636/65c9395e-e8d9-49cb-986b-4b5d83e8a61e)
+)
