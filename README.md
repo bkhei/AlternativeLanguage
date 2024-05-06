@@ -4,7 +4,7 @@
 - Knowledge Goals: All programming concepts and structures within a new language
 
 ## Summary 
-In this assignment, I was given the opportunity to explore using Ruby as a new programming language, by ingesting and cleaning the data collected from 1000 smartphones. 
+In this assignment for my COP4020: Principles of Programmg Languages course, I was given the opportunity to explore using Ruby as a new programming language, by ingesting and cleaning the data collected from 1000 smartphones. 
 
 ## Report
 
